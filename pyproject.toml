@@ -1,0 +1,36 @@
+# 이 파일은 프로젝트의 빌드 시스템과 기본 정보를 정의합니다.
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# --- 프로젝트 정보 ---
+[project]
+# 프로젝트의 이름
+name = "KOS-QA-Automation"
+
+# 프로젝트의 버전
+version = "0.1.0"
+
+# 작성자 정보 (수정해서 사용하세요)
+authors = [
+  { name="KOS QA"},
+]
+
+# 프로젝트에 대한 간단한 설명
+description = "Playwright and Pytest based E2E test automation project for KOS-QA"
+
+# README 파일 지정 (없으면 이 줄을 지워도 됩니다)
+readme = "README.md"
+
+# 필요한 최소 파이썬 버전
+requires-python = ">=3.8"
+
+# --- 가장 중요한 부분: 프로젝트가 사용하는 패키지 목록 ---
+dependencies = [
+    "pytest",
+    "pytest-playwright",
+    "python-dotenv",
+    "Pillow",
+    "pytesseract",
+    "opencv-python"
+]
