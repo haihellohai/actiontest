@@ -59,6 +59,7 @@ jobs:
         run: python run_tests.py 1
       
       - name: 'Create redirection page'
+        shell: bash
         run: |
           REPORT_FILE=$(find reports -maxdepth 1 -name "*.html" | head -n 1)
           echo "<meta http-equiv=\"refresh\" content=\"0; url=$(basename $REPORT_FILE)\" />" > reports/index.html
