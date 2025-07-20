@@ -23,6 +23,9 @@ jobs:
     # Windows 최신 버전의 가상 환경에서 작업을 실행합니다.
     runs-on: windows-latest
 
+    permissions:
+      contents: write
+      
     # 작업 단계를 순서대로 정의합니다.
     steps:
       # 1. Git 저장소의 코드를 가상 환경으로 가져옵니다.
