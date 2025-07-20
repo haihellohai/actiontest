@@ -1,0 +1,395 @@
+
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>테스트 리포트</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+        <style>
+            body { font-family: 'Pretendard', Arial, sans-serif; margin: 40px; background: #f7f9fa; }
+            h1 { color: #388e3c; text-align: center; font-size: 2.6em; margin-bottom: 0.2em; }
+            h2 { color: #444; border-bottom: 2px solid #e0e0e0; padding-bottom: 4px; margin-top: 0; text-align: left; }
+            .section { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px #0001; margin-bottom: 32px; padding: 32px; max-width: 900px; min-width: 600px; margin-left: auto; margin-right: auto; }
+            .summary-section.section {
+                margin-bottom: 40px;
+                padding-top: 32px;
+                padding-bottom: 32px;
+            }
+            .summary-table { margin: 0 auto; }
+            .summary-table td { border: none; background: none; padding: 4px 0; text-align: center; font-size: 1.1em; }
+            .gauge-bar-bg { width: 100%; max-width: 800px; height: 32px; background: #e0e0e0; border-radius: 16px; margin: 18px auto 10px auto; overflow: hidden; box-shadow: 0 2px 8px #0001; }
+            .gauge-bar-fill { height: 100%; border-radius: 16px; transition: width 0.7s; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1em; box-shadow: none; background: #d32f2f; color: #fff; text-shadow: none; }
+            .result-section { max-width: 900px; min-width: 600px; margin: 0 auto 32px auto; text-align: left; }
+            table { border-collapse: collapse; width: 100%; margin-bottom: 40px; table-layout: fixed; }
+            th, td { border: 1px solid #e0e0e0; padding: 10px 14px; }
+            th { background: #f0f4f8; text-align: center; }
+            td.checklist, th.checklist { width: 220px; min-width: 180px; max-width: 260px; text-align: center; }
+            td.result, th.result { width: 70px; min-width: 60px; max-width: 80px; text-align: center; }
+            td.message, th.message { width: auto; min-width: 220px; max-width: 1000px; text-align: left; word-break: break-all; white-space: pre-line; }
+            td.screenshot, th.screenshot { width: 90px; min-width: 70px; max-width: 100px; text-align: center; }
+            td.video, th.video { min-width: 80px; max-width: 120px; }
+            td.message, th.message { word-break: break-all; white-space: pre-line; max-width: 600px; }
+            .result-table-wrap { overflow-x: auto; width: 100%; }
+            .pass { color: #1976d2; font-weight: bold; }
+            .fail { color: #d32f2f; font-weight: bold; }
+            .na { color: orange; font-weight: bold; }
+            .skip { color: gray; font-weight: bold; }
+            pre { background: #f8f8f8; padding: 16px; border-radius: 6px; font-size: 15px; text-align: left; max-width: 900px; margin: 0 auto; font-family: 'Pretendard', Arial, sans-serif; word-break: break-all; white-space: pre-line; }
+            .summary-hr { border: none; border-top: 1px solid #eee; margin: 4px 0; }
+            .result-summary-outer {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 40px;
+            }
+            .result-summary-block {
+                background: #fff;
+                border-radius: 18px;
+                box-shadow: 0 2px 8px #0001;
+                padding: 32px;
+                max-width: 900px;
+                min-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+                color: #444;
+            }
+            .result-summary-title {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-align: left;
+                color: #444;
+            }
+            .result-summary-hr {
+                border: none;
+                border-top: 2px solid #ddd;
+                margin: 0 0 24px 0;
+            }
+            .result-summary-row {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: nowrap;
+            }
+            .result-summary-card {
+                background: #f3f3f3;
+                border-radius: 18px;
+                padding: 18px 18px 12px 18px;
+                min-width: 100px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-shadow: none;
+                justify-content: center;
+            }
+            .result-summary-card.status {
+                background: none;
+                border-radius: 0;
+                box-shadow: none;
+                min-width: 100px;
+                padding: 0 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .result-summary-status-label.fail { color: #b71c1c; font-size: 1.15em; font-weight: bold; margin-bottom: 0.2em; }
+            .result-summary-status-value.fail { color: #b71c1c; font-size: 2.2em; font-weight: bold; }
+            .result-summary-status-label.pass { color: #1976d2; font-size: 1.15em; font-weight: bold; margin-bottom: 0.2em; }
+            .result-summary-status-value.pass { color: #1976d2; font-size: 2.2em; font-weight: bold; }
+            .result-summary-label.all, .result-summary-value.all { color: #111; }
+            .result-summary-label.pass, .result-summary-value.pass { color: #1976d2; }
+            .result-summary-label.fail, .result-summary-value.fail { color: #d32f2f; }
+            .result-summary-label.na, .result-summary-value.na { color: orange; }
+            .result-summary-label.skip, .result-summary-value.skip { color: gray; }
+            .result-summary-label {
+                font-size: 1.15em;
+                font-weight: bold;
+                margin-bottom: 10px;
+                letter-spacing: -1px;
+                text-align: center;
+                color: #444;
+            }
+            .result-summary-value {
+                font-size: 2.2em;
+                font-weight: bold;
+                margin-top: 0;
+                text-align: center;
+                color: #444;
+            }
+            .tab-wrap { display: flex; gap: 0; margin-bottom: 24px; max-width: 900px; min-width: 600px; margin-left: auto; margin-right: auto; }
+            .tab-btn { width: 50%; padding: 8px 0; background: #f3f3f3; border: none; font-size: 1em; font-weight: bold; color: #888; cursor: pointer; border-radius: 12px 12px 0 0; transition: background 0.2s, color 0.2s; max-width: none; min-width: 0; }
+            .tab-btn.active { background: #fff; color: #444; border-bottom: 2px solid #fff; }
+            .tab-content { display: none; }
+            .tab-content.active { display: block; }
+            .history-list ul { list-style: none; padding: 0; }
+            .history-list li { margin-bottom: 8px; }
+            .history-list a { color: #1976d2; text-decoration: underline; }
+            /* 이미지 모달 */
+            #img-modal {
+                display: none;
+                position: fixed;
+                z-index: 9999;
+                left: 0; top: 0; width: 100vw; height: 100vh;
+                background: rgba(0,0,0,0.7);
+                justify-content: center;
+                align-items: center;
+                transition: background 0.2s;
+            }
+            #img-modal.active { display: flex; }
+            #img-modal-img {
+                max-width: 80vw;
+                max-height: 80vh;
+                border-radius: 10px;
+                box-shadow: 0 4px 32px #0008;
+                background: #fff;
+                padding: 8px;
+            }
+        </style>
+        <script>
+        function showTab(tab) {
+            document.getElementById('tab-current').classList.remove('active');
+            document.getElementById('tab-history').classList.remove('active');
+            document.getElementById('content-current').classList.remove('active');
+            document.getElementById('content-history').classList.remove('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById('content-' + tab).classList.add('active');
+        }
+        
+        // 이미지 모달 기능
+        function showImageModal(imgSrc) {
+            var modal = document.getElementById('img-modal');
+            var modalImg = document.getElementById('img-modal-img');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            modal.style.display = 'flex';
+        }
+        
+        function closeImageModal() {
+            var modal = document.getElementById('img-modal');
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            document.getElementById('img-modal-img').src = '';
+        }
+        
+        // 페이지 로드 시 이벤트 바인딩
+        document.addEventListener('DOMContentLoaded', function() {
+            // 스크린샷 이미지 클릭 이벤트
+            document.querySelectorAll('.screenshot img').forEach(function(img) {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showImageModal(this.src);
+                });
+            });
+            
+            // 모달 배경 클릭 시 닫기
+            document.getElementById('img-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeImageModal();
+                }
+            });
+            
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                }
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <h1 style='margin-bottom: 32px;'>KOS 자동테스트 리포트</h1>
+        <div class='tab-wrap' style='max-width:900px; margin:0 auto 32px auto;'>
+            <button id='tab-current' class='tab-btn active' onclick="showTab('current')">현재 결과</button>
+            <button id='tab-history' class='tab-btn' onclick="showTab('history')">이전 결과</button>
+        </div>
+        <div id='content-current' class='tab-content active'>
+            <div class='summary-section section' style='margin-bottom:40px; padding-top:32px; padding-bottom:32px;'>
+                <h2>테스트 요약</h2>
+                <table class='summary-table' style='margin-left:auto; margin-right:auto;'>
+                    <tr><td><b>수행 시점</b></td><td style='text-align:center;'>2025-07-20 10:15:24</td></tr>
+                    <tr><td colspan="2"><hr class='summary-hr'></td></tr>
+                    <tr><td><b>테스트 환경</b></td><td style='text-align:center;'>QA</td></tr>
+                    <tr><td colspan="2"><hr class='summary-hr'></td></tr>
+                    <tr><td><b>테스트 빌드</b></td><td style='text-align:center;'><a href='https://gamma.accounts.krafton.dev/v2/ko/web/login-main?type=last-login' target='_blank'>https://gamma.accounts.krafton...main?type=last-login</a></td></tr>
+                </table>
+            </div>
+            <div class='result-summary-outer'>
+                <div class='result-summary-block'>
+                    <div class='result-summary-title'>결과 요약</div>
+                    <hr class='result-summary-hr'>
+                    <div class='result-summary-row'>
+                        <div class='result-summary-card status'>
+                            <div class='result-summary-status-label fail'>확인 필요</div><div class='result-summary-status-value fail'>-</div>
+                        </div>
+                        <div class='result-summary-card all'>
+                            <div class='result-summary-label all'>체크리스트</div>
+                            <div class='result-summary-value all'>3</div>
+                        </div>
+                        <div class='result-summary-card pass'>
+                            <div class='result-summary-label pass'>Pass</div>
+                            <div class='result-summary-value pass'>0</div>
+                        </div>
+                        <div class='result-summary-card fail'>
+                            <div class='result-summary-label fail'>Fail</div>
+                            <div class='result-summary-value fail'>0</div>
+                        </div>
+                        <div class='result-summary-card na'>
+                            <div class='result-summary-label na'>N/A</div>
+                            <div class='result-summary-value na'>3</div>
+                        </div>
+                        <div class='result-summary-card skip'>
+                            <div class='result-summary-label skip'>Skip</div>
+                            <div class='result-summary-value skip'>0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='result-section section' style='margin-bottom:40px;'>
+                <h2>테스트 결과</h2>
+                <div class='result-table-wrap'>
+                    <table style="table-layout:fixed; width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="width:40%; text-align:center;">체크포인트</th>
+                                <th style="width:5%; text-align:center;">결과</th>
+                                <th style="width:45%; text-align:center;">테스트 정보</th>
+                                <th style="width:10%; text-align:center;">스크린샷</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID QA 로그인</td><td class='result n/a'>N/A</td><td class='message'>로그인 테스트 중 예외 발생: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="로그인")
+    - locator resolved to <button type="button" data-v-0057a021="" data-v-669c55a0="" class="base-button is-disabled">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    14 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <section class="cookie" data-v-7a502461="" data-v-aea01b30="">…</section> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+</td><td class='screenshot'><a href='screenshots/KID QA 로그인_20250720_101522.png' target='_blank'><img src='screenshots/KID QA 로그인_20250720_101522.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>마스킹 이메일을 찾지 못함</td><td class='screenshot'><a href='screenshots/KID 로그인 마스킹 이메일 검증_20250720_101524.png' target='_blank'><img src='screenshots/KID 로그인 마스킹 이메일 검증_20250720_101524.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'</td><td class='screenshot'></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='section' style='max-width:900px; margin:0 auto 40px auto;'>
+                <h2>테스트 영상</h2>
+                <p>녹화된 영상이 없습니다.</p>
+            </div>
+            <div class='section' style='max-width:900px; margin:0 auto 40px auto;'>
+                <h2>로그</h2>
+                <div style="font-family: 'Pretendard', Arial, sans-serif; white-space:pre-line; word-break:break-all;">
+                [2025-07-20 10:14:48] 테스트 시작 (지정된 크롬 프로필 사용)<br/>[2025-07-20 10:14:50] Persistent Chrome 컨텍스트 생성 (기존 프로필 사용)<br/>[2025-07-20 10:14:50] 새 페이지 오픈<br/>[2025-07-20 10:14:50] 로그인 페이지 접속 시도<br/>[2025-07-20 10:14:51] 이메일 입력 시도<br/>[2025-07-20 10:14:52] 비밀번호 입력 시도<br/>[2025-07-20 10:14:52] 로그인 버튼 클릭 시도<br/>[2025-07-20 10:15:22] [체크리스트] KID QA 로그인<br/>[2025-07-20 10:15:22] [결과] KID QA 로그인 - N/A<br/>[2025-07-20 10:15:22] [메시지] 로그인 테스트 중 예외 발생: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="로그인")
+    - locator resolved to <button type="button" data-v-0057a021="" data-v-669c55a0="" class="base-button is-disabled">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    14 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <section class="cookie" data-v-7a502461="" data-v-aea01b30="">…</section> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+<br/>[2025-07-20 10:15:22] ------------------------------------------------------------<br/>[2025-07-20 10:15:22] 마스킹 이메일 검증 대기 및 HTML 파싱<br/>[2025-07-20 10:15:24] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 10:15:24] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 10:15:24] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 10:15:24] [메시지] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 10:15:24] ------------------------------------------------------------<br/>[2025-07-20 10:15:24] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 10:15:24] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 10:15:24] [메시지] 테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'<br/>[2025-07-20 10:15:24] ------------------------------------------------------------<br/>
+                </div>
+            </div>
+        </div>
+        <div id='content-history' class='tab-content'>
+            
+    <div class='section' style='max-width:900px; min-width:600px; margin:0 auto;'>
+        <h2 style='margin-bottom:24px;'>이전 결과</h2>
+        <table style="table-layout:fixed; width:100%;">
+            <thead><tr>
+                <th style='width:40%; text-align:center;'>수행 시점</th>
+                <th style='width:20%; text-align:center;'>테스트 환경</th>
+                <th style='width:20%; text-align:center;'>테스트 결과</th>
+                <th style='width:20%; text-align:center;'>결과 리포트</th>
+            </tr></thead>
+            <tbody><tr style="font-weight:bold;background:#e3f2fd;"><td style='text-align:center;'>2025-07-20 10:15:24 <span style="color:#1976d2;font-weight:bold;">(현재)</span></td><td style='text-align:center;'>QA</td><td style='text-align:center;'>-</td><td style='text-align:center;'><a href='test_report_20250720_101524_QA.html' target='_blank'>테스트 결과</a></td></tr><tr><td style='text-align:center;'>2025-07-20 09:39:49</td><td style='text-align:center;'>QA</td><td style='text-align:center;'>-</td><td style='text-align:center;'><a href='test_report_20250720_093949_QA.html' target='_blank'>테스트 결과</a></td></tr></tbody>
+        </table>
+    </div>
+    
+        </div>
+        <!-- 이미지 모달 -->
+        <div id="img-modal" style="display:none;">
+            <img id="img-modal-img" src="" alt="screenshot" />
+        </div>
+    </body>
+    </html>
+    
