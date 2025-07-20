@@ -409,7 +409,7 @@ def save_report_html(test_results, logs, filename="test_report.html", build_numb
         report_files.append(current_report_file)
     parsed_reports = []
     for f in report_files:
-        m = re.match(r'test_report_(\d{8})_(\d{6})_(.+)_(\d+%)\.html', f)
+        m = re.match(r'test_report_(\d{8})_(\d{6})_(.+)_(\d)\.html', f)
         if m:
             date, time, env_full, pass_ratio = m.groups()
             env_parts = env_full.split('_')
