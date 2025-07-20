@@ -37,6 +37,7 @@ jobs:
       # 5. "1번 KID 로그인 테스트"를 실행합니다.
       - name: 'Run KID Login Test'
         env:
+          PYTHONUTF8: "1" 
           # GitHub Secrets에 저장된 값들을 환경 변수로 설정합니다.
           BASE_URL: ${{ secrets.BASE_URL }}
           ADMIN_ID: ${{ secrets.ADMIN_ID }}
