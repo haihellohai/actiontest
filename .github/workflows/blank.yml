@@ -25,7 +25,7 @@ jobs:
 
     permissions:
       contents: write
-      
+
     # 작업 단계를 순서대로 정의합니다.
     steps:
       # 1. Git 저장소의 코드를 가상 환경으로 가져옵니다.
@@ -57,7 +57,12 @@ jobs:
           USER_PW: ${{ secrets[format('USER_PW_{0}', inputs.runner_name)] }}
         # run_tests.py 스크립트에 '1'을 인자로 전달하여 1번 테스트를 실행합니다.
         run: python run_tests.py 1
-         # 6. 테스트 리포트를 GitHub Pages로 배포합니다.
+      
+      - name: 'Create redirection page'
+        run: |
+          REPORT_FILE=$(find reports -maxdepth 1 -name "*.html" | head -n 1)
+          echo "<meta http-equiv=\"refresh\" content=\"0; url=$(basename $REPORT_FILE)\" />" > reports/index.html
+
       - name: 'Deploy to GitHub Pages'
         uses: peaceiris/actions-gh-pages@v4
         with:
