@@ -22,7 +22,7 @@ def save_report_html(test_results, logs, filename="test_report.html", build_numb
     pass_ratio_filename = f"{pass_ratio_val:.0f}%" if total > 0 else "0%"
     
     if filename == "test_report.html":
-        filename = f"reports/test_report_{now_for_filename}_{env_for_filename}_{pass_ratio_filename}.html"
+        filename = f"reports/test_report_{now_for_filename}_{env_for_filename}.html"
 
     # 절대 경로 계산
     base_dir = os.path.dirname(os.path.abspath(filename))
