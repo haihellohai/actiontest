@@ -209,7 +209,7 @@
             <div class='summary-section section' style='margin-bottom:40px; padding-top:32px; padding-bottom:32px;'>
                 <h2>테스트 요약</h2>
                 <table class='summary-table' style='margin-left:auto; margin-right:auto;'>
-                    <tr><td><b>수행 시점</b></td><td style='text-align:center;'>2025-07-20 09:04:00</td></tr>
+                    <tr><td><b>수행 시점</b></td><td style='text-align:center;'>2025-07-20 09:13:28</td></tr>
                     <tr><td colspan="2"><hr class='summary-hr'></td></tr>
                     <tr><td><b>테스트 환경</b></td><td style='text-align:center;'>QA</td></tr>
                     <tr><td colspan="2"><hr class='summary-hr'></td></tr>
@@ -265,12 +265,15 @@ Call log:
   - waiting for get_by_role("button", name="로그인")
     - locator resolved to <button type="button" data-v-0057a021="" data-v-669c55a0="" class="base-button is-disabled">…</button>
   - attempting click action
-    2 × waiting for element to be visible, enabled and stable
-      - element is visible, enabled and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
-    - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is not stable
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
+  - retrying click action
     - waiting 20ms
     2 × waiting for element to be visible, enabled and stable
       - element is visible, enabled and stable
@@ -307,7 +310,7 @@ Call log:
        - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
      - retrying click action
        - waiting 500ms
-</td><td class='screenshot'><a href='file:///D:/a/actiontest/actiontest/screenshots/KID QA 로그인_20250720_090358.png' target='_blank'><img src='file:///D:/a/actiontest/actiontest/screenshots/KID QA 로그인_20250720_090358.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>마스킹 이메일을 찾지 못함</td><td class='screenshot'><a href='file:///D:/a/actiontest/actiontest/screenshots/KID 로그인 마스킹 이메일 검증_20250720_090400.png' target='_blank'><img src='file:///D:/a/actiontest/actiontest/screenshots/KID 로그인 마스킹 이메일 검증_20250720_090400.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'</td><td class='screenshot'></td></tr>
+</td><td class='screenshot'><a href='file:///D:/a/actiontest/actiontest/screenshots/KID QA 로그인_20250720_091325.png' target='_blank'><img src='file:///D:/a/actiontest/actiontest/screenshots/KID QA 로그인_20250720_091325.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>마스킹 이메일을 찾지 못함</td><td class='screenshot'><a href='file:///D:/a/actiontest/actiontest/screenshots/KID 로그인 마스킹 이메일 검증_20250720_091327.png' target='_blank'><img src='file:///D:/a/actiontest/actiontest/screenshots/KID 로그인 마스킹 이메일 검증_20250720_091327.png' style='width:60px;max-height:40px;object-fit:contain;vertical-align:middle;border-radius:4px;'></a></td></tr><tr><td style='min-width:250px; max-width:350px; text-align:center;'>KID 로그인 마스킹 이메일 검증</td><td class='result n/a'>N/A</td><td class='message'>테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'</td><td class='screenshot'></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -319,17 +322,20 @@ Call log:
             <div class='section' style='max-width:900px; margin:0 auto 40px auto;'>
                 <h2>로그</h2>
                 <div style="font-family: 'Pretendard', Arial, sans-serif; white-space:pre-line; word-break:break-all;">
-                [2025-07-20 09:03:24] 테스트 시작 (지정된 크롬 프로필 사용)<br/>[2025-07-20 09:03:25] Persistent Chrome 컨텍스트 생성 (기존 프로필 사용)<br/>[2025-07-20 09:03:25] 새 페이지 오픈<br/>[2025-07-20 09:03:25] 로그인 페이지 접속 시도<br/>[2025-07-20 09:03:27] 이메일 입력 시도<br/>[2025-07-20 09:03:28] 비밀번호 입력 시도<br/>[2025-07-20 09:03:28] 로그인 버튼 클릭 시도<br/>[2025-07-20 09:03:58] [체크리스트] KID QA 로그인<br/>[2025-07-20 09:03:58] [결과] KID QA 로그인 - N/A<br/>[2025-07-20 09:03:58] [메시지] 로그인 테스트 중 예외 발생: Locator.click: Timeout 30000ms exceeded.
+                [2025-07-20 09:12:52] 테스트 시작 (지정된 크롬 프로필 사용)<br/>[2025-07-20 09:12:53] Persistent Chrome 컨텍스트 생성 (기존 프로필 사용)<br/>[2025-07-20 09:12:53] 새 페이지 오픈<br/>[2025-07-20 09:12:53] 로그인 페이지 접속 시도<br/>[2025-07-20 09:12:55] 이메일 입력 시도<br/>[2025-07-20 09:12:55] 비밀번호 입력 시도<br/>[2025-07-20 09:12:55] 로그인 버튼 클릭 시도<br/>[2025-07-20 09:13:25] [체크리스트] KID QA 로그인<br/>[2025-07-20 09:13:25] [결과] KID QA 로그인 - N/A<br/>[2025-07-20 09:13:25] [메시지] 로그인 테스트 중 예외 발생: Locator.click: Timeout 30000ms exceeded.
 Call log:
   - waiting for get_by_role("button", name="로그인")
     - locator resolved to <button type="button" data-v-0057a021="" data-v-669c55a0="" class="base-button is-disabled">…</button>
   - attempting click action
-    2 × waiting for element to be visible, enabled and stable
-      - element is visible, enabled and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
-    - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is not stable
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <section data-v-7a502461="" data-v-aea01b30="" class="cookie fade-enter-active fade-enter-to">…</section> intercepts pointer events
+  - retrying click action
     - waiting 20ms
     2 × waiting for element to be visible, enabled and stable
       - element is visible, enabled and stable
@@ -366,7 +372,7 @@ Call log:
        - <div data-v-669c55a0="" class="login-main__footer">…</div> intercepts pointer events
      - retrying click action
        - waiting 500ms
-<br/>[2025-07-20 09:03:58] ------------------------------------------------------------<br/>[2025-07-20 09:03:58] 마스킹 이메일 검증 대기 및 HTML 파싱<br/>[2025-07-20 09:04:00] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 09:04:00] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 09:04:00] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 09:04:00] [메시지] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 09:04:00] ------------------------------------------------------------<br/>[2025-07-20 09:04:00] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 09:04:00] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 09:04:00] [메시지] 테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'<br/>[2025-07-20 09:04:00] ------------------------------------------------------------<br/>
+<br/>[2025-07-20 09:13:25] ------------------------------------------------------------<br/>[2025-07-20 09:13:25] 마스킹 이메일 검증 대기 및 HTML 파싱<br/>[2025-07-20 09:13:27] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 09:13:28] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 09:13:28] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 09:13:28] [메시지] 마스킹 이메일을 찾지 못함<br/>[2025-07-20 09:13:28] ------------------------------------------------------------<br/>[2025-07-20 09:13:28] [체크리스트] KID 로그인 마스킹 이메일 검증<br/>[2025-07-20 09:13:28] [결과] KID 로그인 마스킹 이메일 검증 - N/A<br/>[2025-07-20 09:13:28] [메시지] 테스트 중 예외 발생: cleanup_browser() missing 1 required positional argument: 'video_path'<br/>[2025-07-20 09:13:28] ------------------------------------------------------------<br/>
                 </div>
             </div>
         </div>
@@ -381,7 +387,7 @@ Call log:
                 <th style='width:20%; text-align:center;'>테스트 결과</th>
                 <th style='width:20%; text-align:center;'>결과 리포트</th>
             </tr></thead>
-            <tbody><tr style="font-weight:bold;background:#e3f2fd;"><td style='text-align:center;'>2025-07-20 09:04:00 <span style="color:#1976d2;font-weight:bold;">(현재)</span></td><td style='text-align:center;'>QA</td><td style='text-align:center;'><span style="color: #d32f2f; font-weight: bold;">0%</span></td><td style='text-align:center;'><a href='test_report_20250720_090400_QA_0%.html' target='_blank'>테스트 결과</a></td></tr></tbody>
+            <tbody><tr style="font-weight:bold;background:#e3f2fd;"><td style='text-align:center;'>2025-07-20 09:13:28 <span style="color:#1976d2;font-weight:bold;">(현재)</span></td><td style='text-align:center;'>QA</td><td style='text-align:center;'><span style="color: #d32f2f; font-weight: bold;">0%</span></td><td style='text-align:center;'><a href='test_report_20250720_091328_QA_0%.html' target='_blank'>테스트 결과</a></td></tr></tbody>
         </table>
     </div>
     
