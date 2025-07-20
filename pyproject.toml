@@ -35,7 +35,10 @@ dependencies = [
     "opencv-python"
 ]
 
-py_modules = [
+# ▼▼▼ 이 섹션을 새로 추가해주세요 ▼▼▼
+[tool.setuptools]
+# 패키지에 포함할 파이썬 모듈 목록을 여기에 지정합니다.
+py-modules = [
     "run_tests",
     "test_common",
     "test_login_playwright",
