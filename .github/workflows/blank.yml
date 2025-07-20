@@ -1,0 +1,46 @@
+# 워크플로우 이름 (GitHub Actions 탭에 표시됩니다)
+name: 'Run Test 1: KID Login'
+
+# 이 워크플로우를 언제 실행할지 결정합니다.
+on:
+  # GitHub Actions 탭에서 수동으로 실행할 수 있도록 "Run workflow" 버튼을 추가합니다.
+  workflow_dispatch:
+
+# 실행할 작업을 정의합니다.
+jobs:
+  # "run-kid-login" 이라는 이름의 작업을 만듭니다.
+  run-kid-login:
+    # Windows 최신 버전의 가상 환경에서 작업을 실행합니다.
+    runs-on: windows-latest
+
+    # 작업 단계를 순서대로 정의합니다.
+    steps:
+      # 1. Git 저장소의 코드를 가상 환경으로 가져옵니다.
+      - name: 'Checkout Repository Code'
+        uses: actions/checkout@v4
+
+      # 2. Python 3.10 버전을 설치합니다.
+      - name: 'Set up Python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. pyproject.toml 파일을 이용해 필요한 패키지들을 설치합니다.
+      - name: 'Install Dependencies'
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+      
+      # 4. Playwright가 사용할 브라우저 드라이버를 설치합니다.
+      - name: 'Install Playwright Browsers'
+        run: playwright install --with-deps
+
+      # 5. "1번 KID 로그인 테스트"를 실행합니다.
+      - name: 'Run KID Login Test'
+        env:
+          # GitHub Secrets에 저장해 둔 아이디, 비밀번호 등을 환경 변수로 설정합니다.
+          BASE_URL: ${{ secrets.BASE_URL }}
+          ADMIN_ID: ${{ secrets.ADMIN_ID }}
+          ADMIN_PWD: ${{ secrets.ADMIN_PWD }}
+        # run_tests.py 스크립트에 '1'을 인자로 전달하여 1번 테스트를 실행합니다.
+        run: python run_tests.py 1
