@@ -34,3 +34,13 @@ dependencies = [
     "pytesseract",
     "opencv-python"
 ]
+
+py_modules = [
+    "run_tests",
+    "test_common",
+    "test_login_playwright",
+    "test_admin_portal",
+    "generate_report",
+    "make_image",
+    "ocr"
+]
