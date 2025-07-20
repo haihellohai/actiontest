@@ -5,10 +5,10 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 
-EMAIL = os.getenv("id")
-PASSWORD = os.getenv("pw")
-ENV = os.getenv("env")
-BUILD = os.getenv("build")
+EMAIL = os.getenv("USER_ID")
+PASSWORD = os.getenv("USER_PW")
+ENV = os.getenv("ENV")
+BUILD = os.getenv("BUILD")
 
 def run_kid_login_test(playwright: Playwright) -> None:
     """KID 로그인 테스트 시나리오"""
