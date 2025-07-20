@@ -29,12 +29,11 @@ def save_report_html(test_results, logs, filename="test_report.html", build_numb
     parent_dir = os.path.dirname(base_dir)
     
     # 스크린샷과 비디오 경로를 절대 경로로 변환
-    def get_absolute_path(relative_path):
-        if relative_path:
-            if relative_path.startswith("file:///"):
-                return relative_path
-            abs_path = os.path.abspath(relative_path).replace('\\', '/')
-            return f"file:///{abs_path}"
+    def get_absolute_path(path_from_report_dir):
+        if path_from_report_dir:
+        # 이미 'screenshots/image.png' 같은 상대 경로이므로,
+        # Windows의 역슬래시만 웹에서 사용하는 슬래시로 바꿔줍니다.
+            return path_from_report_dir.replace('\\', '/')
         return None
     
     # 비디오 경로를 절대 경로로 변환
